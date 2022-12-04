@@ -10,8 +10,8 @@ const isOverLapping = (range1, range2) => {
     (range2End >= range1Start && range2End <= range1End)
   );
 };
-const isIncludedAssingments = Input1.split("\n").map((line) => {
+const isOverLappingAssingments = Input1.split("\n").map((line) => {
   const [elf1, elf2] = line.split(",");
   return isOverLapping(elf1, elf2) ? 1 : 0;
 });
-console.log(isIncludedAssingments.reduce((a, b) => a + b, 0));
+console.log(isOverLappingAssingments.reduce((a, b) => a + b, 0));
