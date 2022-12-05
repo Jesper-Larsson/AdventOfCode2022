@@ -1,7 +1,8 @@
 import Input1 from "./Input.js";
+const getEdges = (range) => range.split("-").map((str) => parseInt(str));
 const isIncluded = (range, part) => {
-  const [rangeStart, rangeEnd] = range.split("-").map((str) => parseInt(str));
-  const [partStart, partEnd] = part.split("-").map((str) => parseInt(str));
+  const [rangeStart, rangeEnd] = getEdges(range);
+  const [partStart, partEnd] = getEdges(part);
   return rangeStart <= partStart && rangeEnd >= partEnd;
 };
 const isIncludedAssingments = Input1.split("\n").map((line) => {
