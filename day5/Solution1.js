@@ -15,12 +15,8 @@ for (let row = cargoRows.length - 2; row >= 0; row--) {
 }
 moves.split("\n").forEach((move) => {
   const [, count, , dest, , target] = move.split(" ");
-  const tmpStack = [];
   for (let i = 0; i < count; i++) {
-    tmpStack.push(stacks[dest - 1].pop());
-  }
-  for (let i = 0; i < count; i++) {
-    stacks[target - 1].push(tmpStack.pop());
+    stacks[target - 1].push(stacks[dest - 1].pop());
   }
 });
 let result = "";
