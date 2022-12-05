@@ -1,30 +1,17 @@
-import Input from "./Input.js";
-const [cargo, moves] = Input.split("\n\n");
-const stacks = [];
-const cargoRows = cargo.split("\n");
-for (let row = cargoRows.length - 2; row >= 0; row--) {
-  for (let c = 1; c < cargoRows[row].length; c += 4) {
-    const col = Math.floor(c / 4);
-    if (!stacks[col]) {
-      stacks[col] = [];
-    }
-    if (cargoRows[row][c] !== " ") {
-      stacks[col].push(cargoRows[row][c]);
-    }
-  }
-}
-moves.split("\n").forEach((move) => {
-  const [, count, , dest, , target] = move.split(" ");
-  const tmpStack = [];
-  for (let i = 0; i < count; i++) {
-    tmpStack.push(stacks[dest - 1].pop());
-  }
-  for (let i = 0; i < count; i++) {
-    stacks[target - 1].push(tmpStack.pop());
-  }
+import Input1 from "./Input.js";
+const getEdges = (range) => range.split("-").map((str) => parseInt(str));
+const isOverLapping = (range1, range2) => {
+  const [range1Start, range1End] = getEdges(range1);
+  const [range2Start, range2End] = getEdges(range2);
+  return (
+    (range1Start >= range2Start && range1Start <= range2End) ||
+    (range1End >= range2Start && range1End <= range2End) ||
+    (range2Start >= range1Start && range2Start <= range1End) ||
+    (range2End >= range1Start && range2End <= range1End)
+  );
+};
+const isOverLappingAssingments = Input1.split("\n").map((line) => {
+  const [elf1, elf2] = line.split(",");
+  return isOverLapping(elf1, elf2) ? 1 : 0;
 });
-let result = "";
-stacks.forEach((stack) => {
-  result += stack.pop();
-});
-console.log(result);
+console.log(isOverLappingAssingments.reduce((a, b) => a + b, 0));
