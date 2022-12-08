@@ -1,22 +1,41 @@
 import Input from "./Input.js";
-const dirSizes = [];
-const lines = Input.split("\n");
-const findDirectorySizes = (row) => {
-  let dirSize = 0;
-  row++;
-  while (row < lines.length && lines[row] !== "$ cd ..") {
-    if (lines[row].startsWith("$ cd")) {
-      const [innerSize, lastRow] = findDirectorySizes(row);
-      dirSize += innerSize;
-      row = lastRow;
-    } else if (!isNaN(lines[row].split(" ")[0])) {
-      dirSize += parseInt(lines[row].split(" ")[0]);
+const cells = Input.split("\n").map((line) => line.split(""));
+const scenticValues = cells.map((row) => row.map(() => 0));
+const getNrOfSeenTrees = (treeList, treeSize) => {
+    let seenTrees = 0;
+    for (let i = 0; i < treeList.length; i++) {
+        seenTrees++;
+        if (treeList[i] >= treeSize) {
+            break;
+        }
     }
-    row++;
-  }
-  dirSizes.push(dirSize);
-  return [dirSize, row];
+    return seenTrees;
 };
-findDirectorySizes(0);
-const diskSpaceToFreeUp = 30000000 - (70000000 - dirSizes.pop());
-console.log(Math.min(...dirSizes.filter((size) => size >= diskSpaceToFreeUp)));
+for (let row = 0; row < cells.length; row++) {
+    for (let col = 0; col < cells[0].length; col++) {
+        const maxLeft = getNrOfSeenTrees(
+            cells[row].slice(0, col).reverse(),
+            cells[row][col]
+        );
+        const maxRight = getNrOfSeenTrees(
+            cells[row].slice(col + 1),
+            cells[row][col]
+        );
+        const maxAbove = getNrOfSeenTrees(
+            cells
+            .map((rowToEval) => rowToEval[col])
+            .slice(0, row)
+            .reverse(),
+            cells[row][col]
+        );
+        const maxBelow = getNrOfSeenTrees(
+            cells.map((rowToEval) => rowToEval[col]).slice(row + 1),
+            cells[row][col]
+        );
+        scenticValues[row][col] = maxLeft * maxRight * maxAbove * maxBelow;
+    }
+}
+const rowMaxValues = scenticValues.map((row) =>
+    row.reduce((a, b) => Math.max(a, b), 0)
+);
+console.log(Math.max(...rowMaxValues));
