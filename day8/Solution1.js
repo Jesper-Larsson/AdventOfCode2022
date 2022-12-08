@@ -3,15 +3,6 @@ const cells = Input.split("\n").map((line) => line.split(""));
 const isVisible = cells.map((row) => row.map(() => 0));
 for (let row = 0; row < cells.length; row++) {
     for (let col = 0; col < cells[0].length; col++) {
-        if (
-            col === 0 ||
-            col === cells[0].length - 1 ||
-            row === 0 ||
-            row === cells.length - 1
-        ) {
-            isVisible[row][col] = 1;
-            continue;
-        }
         const maxLeft = Math.max(...cells[row].slice(0, col));
         const maxRight = Math.max(...cells[row].slice(col + 1));
         const maxAbove = Math.max(
