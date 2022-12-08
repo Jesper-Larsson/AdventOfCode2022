@@ -9,7 +9,7 @@ const findDirectorySizes = (row) => {
       const [innerSize, lastRow] = findDirectorySizes(row);
       dirSize += innerSize;
       row = lastRow;
-    } else if (row < lines.length && !isNaN(lines[row].split(" ")[0])) {
+    } else if (!isNaN(lines[row].split(" ")[0])) {
       dirSize += parseInt(lines[row].split(" ")[0]);
     }
     row++;
