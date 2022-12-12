@@ -41,11 +41,3 @@ abaacccccccccaaaaaaaaaaaaaaccccccccccccaacccccccccccccccaaaaa
 abaaaccccccccccaaaaaaaaccccccccccccccccccccccccccccccccaaaaaa`;
 
 export default Input;
-
-/*
-v..v<<<<
->v.vv<<^
-.>vv>E^^
-..v>>>^^
-..>>>>>^
-*/
