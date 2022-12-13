@@ -3,9 +3,6 @@ let lines = Input.split("\n").filter((line) => line !== "");
 lines.push("[[2]]");
 lines.push("[[6]]");
 const getSmallestItem = (item1, item2) => {
-  if (item2 === undefined) {
-    return 1;
-  }
   if (typeof item1 === "number" && typeof item2 === "number") {
     return item1 === item2 ? -1 : item1 < item2 ? 1 : 2;
   }

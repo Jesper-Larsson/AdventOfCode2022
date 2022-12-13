@@ -2,9 +2,6 @@ import Input from "./Input.js";
 let pairs = Input.split("\n\n");
 const indiciesWhereCorrect = [];
 const getSmallestItem = (item1, item2) => {
-  if (item2 === undefined) {
-    return 1;
-  }
   if (typeof item1 === "number" && typeof item2 === "number") {
     return item1 === item2 ? -1 : item1 < item2 ? 1 : 2;
   }
